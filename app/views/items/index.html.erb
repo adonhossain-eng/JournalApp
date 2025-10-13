@@ -1,0 +1,24 @@
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1>All Items</h1>
+<div style="width: 95%; margin-top: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Link</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.link %></td>
+      <td><%= button_to "Update", item, class: "btn btn-primary" %></td>
+      <td><%= button_to "Delete", item, method: :delete, class: "btn btn-danger" %> </td>
+    <% end %>
+    <tr>
+  </tbody>
+</table>
+</div>
+</div>
