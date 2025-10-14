@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-
     def index
         @items = Item.all
     end
@@ -17,6 +16,19 @@ class ItemsController < ApplicationController
         end
     end
 
+    def edit
+        @item = Item.find(params[:id])
+    end
+
+    def update
+        @item = Item.find(params[:id])
+        if @item.update(entry_params)
+            redirect_to root_url
+        else
+            render :edit
+        end
+    end
+
     def destroy
         Item.find(params[:id]).destroy
         redirect_to root_url
@@ -25,7 +37,6 @@ class ItemsController < ApplicationController
     private
 
     def entry_params
-        params.require(:item).permit(:name, :link)
+        params.require(:item).permit(:name, :tag, :content)
     end
-
 end

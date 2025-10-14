@@ -1,10 +1,10 @@
 <div style="display: flex; flex-direction: column; align-items: center;">
 
-<h1>New Item</h1>
+<h1>View/Edit Item</h1>
 <%= form_with(model: @item) do |form| %>
  <div>
     <div class="input-group">
-      <span class="input-group-text">Name:</span>
+      <span class="input-group-text">Title:</span>
       <%= form.text_field :name %>
     </div>
     <br>
@@ -22,9 +22,9 @@
   <span>
     <a href=<%= root_path %> class="btn btn-primary">Back home</a>
     
-    <%= form.submit "Create item", class: "btn btn-success" %>
+    <%= form.submit "Submit changes", class: "btn btn-success" %>
   </span>
+  <h3>Threads</h3>
 <% end %>
-
 
 </div>

@@ -4,8 +4,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Link</th>
+      <th>Title</th>
+      <th>Tag</th>
+      <th>Date Added</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,8 +14,9 @@
     <% @items.each do |item| %>
     <tr>
       <td><%= item.name %></td>
-      <td><%= item.link %></td>
-      <td><%= button_to "Update", item, class: "btn btn-primary" %></td>
+      <td><%= item.tag %></td>
+      <td><%= item.created_at.strftime("%B %d, %Y %H:%M") %></td>
+      <td><a href=<%= edit_item_path(item) %>><%= button_to "View/Edit", item, class: "btn btn-primary" %></a></td>
       <td><%= button_to "Delete", item, method: :delete, class: "btn btn-danger" %> </td>
     <% end %>
     <tr>
