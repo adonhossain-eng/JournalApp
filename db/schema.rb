@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_13_151729) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_15_144521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,5 +20,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_13_151729) do
     t.datetime "updated_at", null: false
     t.string "tag"
     t.string "content"
+  end
+
+  create_table "thread_message", force: :cascade do |t|
+    t.string "item_id"
+    t.string "sender"
+    t.text "message"
+    t.datetime "date_sent"
   end
 end

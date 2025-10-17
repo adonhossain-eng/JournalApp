@@ -4,18 +4,27 @@
 <%= form_with(model: @item) do |form| %>
  <div>
     <div class="input-group">
-      <span class="input-group-text">Name:</span>
+      <span class="input-group-text">Title:</span>
       <%= form.text_field :name %>
     </div>
     <br>
+    <p style="text-decoration: underline;">Tag:</p>
     <div class="input-group">
-      <span class="input-group-text">Tag:</span>
-      <%= form.text_field :tag %>
+      <div class="field">
+        <%= form.label :tag, "Reflection", value: "Reflection" %>
+        <%= form.radio_button :tag, "Reflection", class: "form-check-input" %>
+        
+        <%= form.label :tag, "Ideas", value: "Ideas" %>
+        <%= form.radio_button :tag, "Ideas", class: "form-check-input" %>
+        
+        <%= form.label :tag, "IDK", value: "IDK" %>
+        <%= form.radio_button :tag, "IDK", class: "form-check-input" %>
+      </div>
     </div>
     <br>
     <div class="input-group">
       <span class="input-group-text">Content:</span>
-      <%= form.text_area :content, cols: 50, rows: 40 %>
+      <%= form.text_area :content, cols: 50, rows: 30 %>
     </div>
  </div>
  <br>

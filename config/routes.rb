@@ -12,6 +12,5 @@ Rails.application.routes.draw do
   root "items#index"
   resources :items, only: [ :create, :new, :edit, :destroy, :update ]
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  post "/ai_chat", to: "ai_chat#chat"
 end

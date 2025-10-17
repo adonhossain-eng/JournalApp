@@ -1,0 +1,2 @@
+class ThreadMessage < ApplicationRecord
+end
