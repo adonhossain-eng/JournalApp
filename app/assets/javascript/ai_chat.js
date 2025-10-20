@@ -18,7 +18,7 @@ function attachChatModal() {
   
   const messageContainer = document.getElementById('chat-messages');
   // Add an event listener to the button
-  button.addEventListener('click', function() {
+  button.addEventListener('click', async function() {
     // Show the modal
     modal.style.display = 'flex';
     console.log("AI Chat button clicked");
@@ -28,7 +28,21 @@ function attachChatModal() {
       pastMessages.push(messageRecord[i].textContent);
     }
     if (pastMessages.length === 0) {
-      generateAIResponse(messageContainer, createContextString());
+      // First, retrieve the existing messages from the database
+      const existingMessages = await fetchExistingMessages();
+      if (existingMessages.length > 0) {
+        existingMessages.forEach(msg => {
+          const msgDiv = document.createElement('div');
+          msgDiv.className = msg.sender === "user" ? 'user-message' : 'ai-message';
+          msgDiv.textContent = (msg.sender === "user" ? "You: " : "AI: ") + msg.content;
+          messageContainer.appendChild(msgDiv);
+        });
+        // Scroll to the bottom
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      } else {
+        console.log("No existing messages found.");
+        generateAIResponse(messageContainer, createContextString());
+      }
     }
   });
   // Close the modal when the user clicks the close button
@@ -58,6 +72,8 @@ function attachChatModal() {
     userMessage.textContent = "You: " + userInput;
     messageContainer.appendChild(userMessage);
     chatInput.value = '';
+
+    recordMessageInDatabase(userInput, true);
 
     // Scroll to the bottom
     messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -102,6 +118,9 @@ function createContextString() {
       case "Reflection":
         contextString += "Provide deep reflections on their thoughts and feelings, encouraging further introspection.";
         break;
+      case "Mood":
+        contextString += "Analyze their mood and provide supportive advice or coping strategies.";
+        break;
       default:
         contextString += "Offer general support and encouragement for their journaling practice.";
         break;
@@ -114,6 +133,8 @@ async function generateAIResponse(messageContainer, context) {
   const tempMsg = document.createElement('div');
   tempMsg.className = 'ai-message';
   tempMsg.textContent = "AI is typing...";
+  const sendBtn = document.getElementById('send-btn');
+  sendBtn.disabled = true;
   messageContainer.appendChild(tempMsg);
   messageContainer.scrollTop = messageContainer.scrollHeight;
 
@@ -128,6 +149,43 @@ async function generateAIResponse(messageContainer, context) {
 
   const data = await response.json();
   tempMsg.textContent = "AI: " + data.response;
+
+  recordMessageInDatabase(data.response, false);
+
+  sendBtn.disabled = false;
+}
+
+async function recordMessageInDatabase(messageText, isUser) {
+  /// Placeholder function to record messages in the database
+  // You would typically send an AJAX request to your Rails backend here
+  const itemId = parseInt(window.location.pathname.split('/')[2]);
+  const response = await fetch('/items/' + itemId + '/chat_message', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: JSON.stringify({ 
+      chat_message: { 
+        content: messageText,
+        sender: isUser ? 0 : 1,
+        items_id: itemId // Assumes URL structure /items/:id/edit
+      }
+    })
+  });
+}
+
+async function fetchExistingMessages() {
+  const itemId = parseInt(window.location.pathname.split('/')[2]);
+  const response = await fetch('/items/' + itemId + '/chat_message', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    }
+  });
+  const data = await response.json();
+  return data;
 }
 
 document.addEventListener('turbo:load', attachChatModal);

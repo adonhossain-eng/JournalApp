@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root "items#index"
-  resources :items, only: [ :create, :new, :edit, :destroy, :update ]
+
+  resources :items, only: [ :create, :new, :edit, :destroy, :update ] do
+    resources :chat_message, only: [ :index, :create ]
+  end
 
   post "/ai_chat", to: "ai_chat#chat"
 end

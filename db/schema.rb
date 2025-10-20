@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_15_144521) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_19_135443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.bigint "items_id", null: false
+    t.integer "sender"
+    t.text "content"
+    t.datetime "time_sent", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["items_id"], name: "index_chat_messages_on_items_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -22,10 +30,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_15_144521) do
     t.string "content"
   end
 
-  create_table "thread_message", force: :cascade do |t|
-    t.string "item_id"
-    t.string "sender"
-    t.text "message"
-    t.datetime "date_sent"
-  end
+  add_foreign_key "chat_messages", "items", column: "items_id"
 end
