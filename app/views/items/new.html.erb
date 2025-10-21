@@ -1,18 +1,18 @@
 <div style="display: flex; flex-direction: column; align-items: center;">
 
-<h1>New Item</h1>
+<h1>New Entry</h1>
 <%= form_with(model: @item) do |form| %>
  <div>
     <div class="input-group">
       <span class="input-group-text">Title:</span>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, :required => true %>
     </div>
     <br>
     <p style="text-decoration: underline;">Tag:</p>
     <div class="input-group">
       <div class="field">
         <%= form.label :tag, "Reflection", value: "Reflection" %>
-        <%= form.radio_button :tag, "Reflection", class: "form-check-input" %>
+        <%= form.radio_button :tag, "Reflection", class: "form-check-input", checked: true %>
         
         <%= form.label :tag, "Ideas", value: "Ideas" %>
         <%= form.radio_button :tag, "Ideas", class: "form-check-input" %>
@@ -24,14 +24,14 @@
     <br>
     <div class="input-group">
       <span class="input-group-text">Content:</span>
-      <%= form.text_area :content, cols: 50, rows: 30 %>
+      <%= form.text_area :content, cols: 50, rows: 30, :required => true %>
     </div>
  </div>
  <br>
   <span>
     <a href=<%= root_path %> class="btn btn-primary">Back home</a>
     
-    <%= form.submit "Create item", class: "btn btn-success" %>
+    <%= form.submit "Create entry", class: "btn btn-success" %>
   </span>
 <% end %>
 

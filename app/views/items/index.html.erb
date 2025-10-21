@@ -1,5 +1,5 @@
 <div style="display: flex; flex-direction: column; align-items: center;">
-<h1>All Items</h1>
+<h1>All Entries</h1>
 <div style="width: 95%; margin-top: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
 <table class="table table-striped">
   <thead>
@@ -7,6 +7,7 @@
       <th>Title</th>
       <th>Tag</th>
       <th>Date Added</th>
+      <th>Last Edited</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -16,10 +17,14 @@
       <td><%= item.name %></td>
       <td><%= item.tag %></td>
       <td><%= item.created_at.strftime("%B %d, %Y %H:%M") %></td>
+      <td><%= item.updated_at.strftime("%B %d, %Y %H:%M")%></td>
       <td><%= link_to "View/Edit", edit_item_path(item), class: "btn btn-primary", data: {turbo: false} %></td>
       <td><%= button_to "Delete", item, method: :delete, class: "btn btn-danger" %> </td>
     <% end %>
     <tr>
+    <td colspan="5" style="text-align: center;">
+      <%= link_to "New Entry", new_item_path, class: "btn btn-secondary" %>
+    </td>
   </tbody>
 </table>
 </div>

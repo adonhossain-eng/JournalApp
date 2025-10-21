@@ -108,7 +108,8 @@ function createContextString() {
                         document.getElementById('journalEntry').textContent + "\n" +
                         "END OF ENTRY\nDo be concise in your responses.\n";
   if (pastMessages.length > 0) {
-    contextString += "Here is the chat history so far:\n" + pastMessages.join("\n") + "\n";
+    contextString += "Here is the chat history so far ('You' is the user, and 'AI' is you):\n" +
+     pastMessages.join("\n") + "\n";
   }
   else {
     switch(tagText) {
