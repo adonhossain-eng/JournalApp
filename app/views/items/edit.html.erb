@@ -1,11 +1,11 @@
 <div style="display: flex; flex-direction: column; align-items: left; margin: 20px;">
-<h1>View/Edit Item</h1>
 
+<h1>View/Edit Entry</h1>
 <%= form_with(model: @item) do |form| %>
  <div>
     <div class="input-group">
       <span class="input-group-text">Title:</span>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, :size => 80, :required => true %>
     </div>
     <br>
     <p style="text-decoration: underline;">Tag:</p>
@@ -24,7 +24,7 @@
 
     <br>
     <div class="input-group">
-      <%= form.text_area :content, cols: 70, rows: 30, id: "journalEntry" %>
+      <%= form.text_area :content, cols: 75, rows: 30, id: "journalEntry", :required => true %>
     </div>
  </div>
  <br>

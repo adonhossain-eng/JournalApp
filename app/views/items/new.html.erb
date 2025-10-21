@@ -5,7 +5,7 @@
  <div>
     <div class="input-group">
       <span class="input-group-text">Title:</span>
-      <%= form.text_field :name, :required => true %>
+      <%= form.text_field :name, :required => true, :size => 80 %>
     </div>
     <br>
     <p style="text-decoration: underline;">Tag:</p>
@@ -24,7 +24,7 @@
     <br>
     <div class="input-group">
       <span class="input-group-text">Content:</span>
-      <%= form.text_area :content, cols: 50, rows: 30, :required => true %>
+      <%= form.text_area :content, cols: 75, rows: 30, :required => true %>
     </div>
  </div>
  <br>
