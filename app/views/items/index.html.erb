@@ -1,5 +1,6 @@
 <div style="display: flex; flex-direction: column; align-items: center;">
-<h1>All Entries</h1>
+<h5>Logged in as: <%= current_user.email %></h5>
+<h1>Welcome back! Here are your entries</h1>
 <div style="width: 95%; margin-top: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
 <table class="table table-striped">
   <thead>
@@ -22,7 +23,7 @@
       <td><%= button_to "Delete", item, method: :delete, class: "btn btn-danger" %> </td>
     <% end %>
     <tr>
-    <td colspan="5" style="text-align: center;">
+    <td colspan="6" style="text-align: center;">
       <%= link_to "New Entry", new_item_path, class: "btn btn-secondary" %>
     </td>
   </tbody>

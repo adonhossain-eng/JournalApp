@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :set_item, only: %i[ edit update destroy ]
     def index
-        @items = Item.all
+        @items = current_user.items.order(created_at: :desc)
     end
 
     def new
@@ -8,11 +10,11 @@ class ItemsController < ApplicationController
     end
 
     def create
-        @item = Item.new(entry_params)
+        @item = current_user.items.build(entry_params)
         if @item.save
             redirect_to root_url
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -37,6 +39,10 @@ class ItemsController < ApplicationController
     private
 
     def entry_params
-        params.require(:item).permit(:name, :tag, :content)
+        params.require(:item).permit(:user_id, :name, :tag, :content)
+    end
+
+    def set_item
+        @item = current_user.items.find(params[:id])
     end
 end

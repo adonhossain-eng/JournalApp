@@ -12,10 +12,19 @@
     <div class="input-group">
       <div class="field">
         <%= form.label :tag, "Reflection", value: "Reflection" %>
-        <%= form.radio_button :tag, "Reflection", class: "form-check-input", checked: true %>
+        <%= form.radio_button :tag, "Reflection", class: "form-check-input" %>
         
-        <%= form.label :tag, "Ideas", value: "Ideas" %>
-        <%= form.radio_button :tag, "Ideas", class: "form-check-input" %>
+        <%= form.label :tag, "Creative writing", value: "Creative writing" %>
+        <%= form.radio_button :tag, "Creative writing", class: "form-check-input" %>
+        
+        <%= form.label :tag, "Plans", value: "Plans" %>
+        <%= form.radio_button :tag, "Plans", class: "form-check-input" %>
+        
+        <%= form.label :tag, "Personal development", value: "Personal development" %>
+        <%= form.radio_button :tag, "Personal development", class: "form-check-input" %>
+
+        <%= form.label :tag, "General ideas", value: "General ideas" %>
+        <%= form.radio_button :tag, "General ideas", class: "form-check-input" %>
         
         <%= form.label :tag, "Mood", value: "Mood" %>
         <%= form.radio_button :tag, "Mood", class: "form-check-input" %>
